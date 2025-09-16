@@ -106,15 +106,29 @@
     </form>
   </div>
 
-  <script>
-    document.getElementById("patientForm").addEventListener("submit", function(event){
-      event.preventDefault();
-      const formData = new FormData(this);
-      const data = Object.fromEntries(formData.entries());
-      console.log("Captured Data:", data);
+<script>
+  document.getElementById("patientForm").addEventListener("submit", function(event){
+    event.preventDefault();
 
-      alert("Form submitted! (Check console for data)");
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData.entries());
+
+    fetch("https://script.google.com/macros/s/AKfycbz51B6lg3ssT-lHzrgy1lYjd-IFGLP_juP9V8rsHZbHWxNg5O_NJ7HzD9dWv3lyJsCo/exec", {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    })
+    .then(() => {
+      alert("Data submitted to Google Sheet!");
+      document.getElementById("patientForm").reset();
+    })
+    .catch(err => {
+      console.error("Error:", err);
+      alert("Error submitting data.");
     });
-  </script>
+  });
+</script>
+
 </body>
 </html>
