@@ -113,29 +113,36 @@
     const formData = new FormData(this);
     const data = Object.fromEntries(formData.entries());
 
-    // 🔒 Add API Key
-    data.api_key = "AWAIS_ALAM_aia"; // Must match the one in Google Apps Script
+    // 🔒 API Key (must match Apps Script)
+    data.api_key = "AWAIS_ALAM_aia";
 
     fetch("https://script.google.com/macros/s/AKfycbz51B6lg3ssT-lHzrgy1lYjd-IFGLP_juP9V8rsHZbHWxNg5O_NJ7HzD9dWv3lyJsCo/exec", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     })
-    .then(res => res.json())
-    .then(response => {
-      if (response.status === "success") {
-        alert("✅ Data submitted to Google Sheet!");
-        document.getElementById("patientForm").reset();
-      } else {
-        alert("❌ Error: " + response.message);
+    .then(res => res.text())   // 👈 read raw text (not JSON yet)
+    .then(text => {
+      console.log("RAW RESPONSE:", text);  // log raw reply
+      try {
+        const response = JSON.parse(text); // try to parse JSON
+        if (response.status === "success") {
+          alert("✅ Data submitted to Google Sheet!");
+          document.getElementById("patientForm").reset();
+        } else {
+          alert("❌ Error: " + response.message);
+        }
+      } catch (err) {
+        alert("⚠️ Unexpected response (check console)");
       }
     })
     .catch(err => {
-      console.error("Error:", err);
-      alert("❌ Error submitting data.");
+      console.error("FETCH ERROR:", err);
+      alert("❌ Network error (check console).");
     });
   });
 </script>
+
 
 
 </body>
