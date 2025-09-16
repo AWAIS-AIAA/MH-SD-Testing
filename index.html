@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Data Capture</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: #f8f9fa;
+    }
+    .form-container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 25px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .form-title {
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: bold;
+      color: #0d6efd;
+    }
+    .required::after {
+      content: " *";
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h3 class="form-title">Patient Registration Form</h3>
+    <form id="patientForm">
+      
+      <!-- Visit Date -->
+      <div class="mb-3">
+        <label class="form-label required">Visit Date</label>
+        <input type="date" class="form-control" name="visit_date" required>
+      </div>
+
+      <!-- Clinic -->
+      <div class="mb-3">
+        <label class="form-label required">Clinic</label>
+        <input type="text" class="form-control" name="clinic" placeholder="Enter clinic name" required>
+      </div>
+
+      <!-- File Number -->
+      <div class="mb-3">
+        <label class="form-label required">File Number</label>
+        <input type="text" class="form-control" name="file_number" placeholder="Enter file number" required>
+      </div>
+
+      <!-- Patient Status -->
+      <div class="mb-3">
+        <label class="form-label required">Patient Status</label><br>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="patient_status" value="New" required>
+          <label class="form-check-label">New</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="patient_status" value="Follow-Up" required>
+          <label class="form-check-label">Follow-Up</label>
+        </div>
+      </div>
+
+      <!-- Date of Birth -->
+      <div class="mb-3">
+        <label class="form-label required">Date of Birth</label>
+        <input type="date" class="form-control" name="dob" required>
+      </div>
+
+      <!-- Gender -->
+      <div class="mb-3">
+        <label class="form-label required">Gender</label><br>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="gender" value="Male" required>
+          <label class="form-check-label">Male</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="gender" value="Female" required>
+          <label class="form-check-label">Female</label>
+        </div>
+      </div>
+
+      <!-- Patient Type -->
+      <div class="mb-3">
+        <label class="form-label required">Patient Type</label><br>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="patient_type" value="Zakat" required>
+          <label class="form-check-label">Zakat</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="patient_type" value="Non-Zakat" required>
+          <label class="form-check-label">Non-Zakat</label>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("patientForm").addEventListener("submit", function(event){
+      event.preventDefault();
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+      console.log("Captured Data:", data);
+
+      alert("Form submitted! (Check console for data)");
+    });
+  </script>
+</body>
+</html>
