@@ -113,22 +113,30 @@
     const formData = new FormData(this);
     const data = Object.fromEntries(formData.entries());
 
+    // 🔒 Add API Key
+    data.api_key = "AWAIS_ALAM_aia"; // Must match the one in Google Apps Script
+
     fetch("https://script.google.com/macros/s/AKfycbz51B6lg3ssT-lHzrgy1lYjd-IFGLP_juP9V8rsHZbHWxNg5O_NJ7HzD9dWv3lyJsCo/exec", {
       method: "POST",
-      mode: "no-cors",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     })
-    .then(() => {
-      alert("Data submitted to Google Sheet!");
-      document.getElementById("patientForm").reset();
+    .then(res => res.json())
+    .then(response => {
+      if (response.status === "success") {
+        alert("✅ Data submitted to Google Sheet!");
+        document.getElementById("patientForm").reset();
+      } else {
+        alert("❌ Error: " + response.message);
+      }
     })
     .catch(err => {
       console.error("Error:", err);
-      alert("Error submitting data.");
+      alert("❌ Error submitting data.");
     });
   });
 </script>
+
 
 </body>
 </html>
