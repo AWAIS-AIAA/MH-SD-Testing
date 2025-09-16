@@ -106,7 +106,7 @@
 
       // Collect form data
       const data = {
-        api_key: "AWAIS_ALAM_aia",  // must match Apps Script
+        api_key: "MY_SECRET_KEY_123",  // must match Apps Script
         visit_date: form.visit_date.value,
         clinic: form.clinic.value,
         file_number: form.file_number.value,
@@ -117,7 +117,7 @@
       };
 
       try {
-        const response = await fetch("https://script.google.com/macros/s/AKfycbz51B6lg3ssT-lHzrgy1lYjd-IFGLP_juP9V8rsHZbHWxNg5O_NJ7HzD9dWv3lyJsCo/exec", {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbz51B6lg3ssT-lHzrgy1lYjd-IFGLP_juP9V8rsHZbHWxNg5O_NJ7HzD9dWv3lyJsCo/exec", {  // 👈 replace with /exec URL
           method: "POST",
           mode: "cors",
           headers: {
